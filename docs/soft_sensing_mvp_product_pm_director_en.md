@@ -229,7 +229,38 @@ Core content:
 
 This page is strategically important because it proves the productization concept.
 
-### 6.4 Product Director Demo Design Additions
+### 6.4 Visual Direction
+
+The demo should use the same general frontend tone as the referenced Siemens-style agentic AI sales application:
+
+- Dark industrial dashboard base, not a light SaaS dashboard.
+- Deep navy background with slightly lighter panel surfaces.
+- Cyan / teal as the primary product accent.
+- Green as the positive / complete / high-confidence accent.
+- Yellow for warning / medium-confidence states.
+- Red for error / low-confidence / unavailable states.
+- Compact cards, dense tables, and restrained visual hierarchy.
+- Inter or a similar modern sans-serif font.
+
+Recommended color tokens:
+
+| Role | Color |
+|---|---|
+| App background | `#000028` |
+| Main surface | `#171739` |
+| Secondary surface | `rgba(55, 55, 77, 0.2)` |
+| Border | `rgba(232, 232, 227, 0.1)` |
+| Primary accent | `#00CCCC` |
+| Positive accent | `#00FFB9` |
+| Success | `#01D65A` |
+| Warning | `#FFD732` |
+| Error | `#FF2640` |
+| Primary text | `#FFFFFF` |
+| Secondary text | `rgba(255, 255, 255, 0.65)` |
+
+This visual direction is appropriate for a product director demo because it makes the application feel like an industrial operations product rather than a generic analytics mockup.
+
+### 6.5 Product Director Demo Design Additions
 
 For a product director demo, the three pages are enough, but they must contain several explicit proof moments. The demo should not rely only on verbal explanation.
 

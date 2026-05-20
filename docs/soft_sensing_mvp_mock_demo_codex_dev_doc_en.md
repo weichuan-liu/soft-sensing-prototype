@@ -703,14 +703,46 @@ Changing the config selector should update assets, config summary, and visible r
 
 ### 10.2 Visual style
 
-Use a clean industrial dashboard style:
+Use a dark industrial dashboard style aligned with the referenced frontend in:
 
-- Light background
-- Cards with rounded corners
-- Clear hierarchy
-- Compact but readable tables
-- Confidence and source badges visible beside values
-- Avoid overly decorative visuals
+```text
+C:\Users\z0049xpj\Documents\GitHub\agentic-ai-langgraph-si-b-sales\frontend
+```
+
+The reference style uses a deep navy application shell, cyan / teal accents, compact panels, and high-contrast operational UI. The mock demo should follow that direction rather than a generic light dashboard.
+
+Recommended theme tokens:
+
+| Role | Token | Value |
+|---|---|---|
+| App background | `background.app` | `#000028` |
+| Main surface | `surface.main` | `#171739` |
+| Secondary surface | `surface.secondary` | `rgba(55, 55, 77, 0.2)` |
+| Header overlay | `surface.header` | `rgba(0, 0, 40, 0.4)` |
+| Border | `border.subtle` | `rgba(232, 232, 227, 0.1)` |
+| Border accent | `border.accent` | `rgba(0, 204, 204, 0.3)` |
+| Primary accent | `accent.cyan` | `#00CCCC` |
+| Positive accent | `accent.green` | `#00FFB9` |
+| Success | `state.success` | `#01D65A` |
+| Warning | `state.warning` | `#FFD732` |
+| Error | `state.error` | `#FF2640` |
+| Primary text | `text.primary` | `#FFFFFF` |
+| Secondary text | `text.secondary` | `rgba(255, 255, 255, 0.65)` |
+| Muted text | `text.muted` | `rgba(255, 255, 255, 0.45)` |
+
+Implementation guidance:
+
+- Use Inter or the closest available sans-serif stack.
+- Use dark navy as the full app background.
+- Use cyan / teal for active navigation, primary actions, chart highlights, and selected states.
+- Use green for high confidence and successful validation.
+- Use yellow for medium confidence and warnings.
+- Use red for low confidence, unavailable values, and critical validation issues.
+- Keep card radius at 8px or less.
+- Use compact cards, dense tables, and restrained gradients.
+- Avoid bright white page sections, decorative blobs, and marketing-style hero layouts.
+- Confidence and source badges must remain visible beside energy values.
+- Charts should use the theme palette, not default Recharts colors.
 
 ---
 
@@ -975,6 +1007,7 @@ The mock demo is complete when:
 | No hard-coded customer logic in Core | Core does not contain Dicastal-specific terms |
 | Energy results carry trust metadata | Source, confidence, confidence interval, and data quality are displayed |
 | Confidence is explainable | Soft-measured and low-confidence values show confidence reasons |
+| Visual style matches reference | Dark navy shell, cyan / teal accents, compact industrial dashboard components |
 | Configuration page exists | User can see loaded template/config and tag mappings |
 | Config swap proof exists | User can switch to a second small config or scenario without changing core logic |
 | Machine detail works | User can select a machine and view energy/cycle/confidence data |
