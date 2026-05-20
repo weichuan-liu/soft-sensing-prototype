@@ -90,7 +90,49 @@ configs/    customer configuration pack
 app/        runnable app assembled from template and config
 ```
 
-### 3.3 Every energy result must include trust metadata
+### 3.3 Keep frontend code structured and maintainable
+
+The referenced frontend provides the desired color direction, but its styling code is too verbose for this MVP. Do not copy its styled-components-heavy structure.
+
+Use a more structured frontend approach:
+
+- Prefer Tailwind utility classes plus a small set of shared design tokens.
+- Keep page components focused on composition and data flow.
+- Keep reusable UI primitives in `src/components`.
+- Keep app-specific layout and page orchestration in `src/app`.
+- Keep domain/template/config logic out of visual components.
+- Avoid large per-component style files unless a component truly needs complex behavior.
+- Avoid duplicating color values across many files; define theme tokens once.
+- Avoid deeply nested component trees for simple dashboard sections.
+- Use clear filenames and small components over monolithic page files.
+
+Recommended frontend structure:
+
+```text
+src/
+  app/
+    layout/
+    pages/
+    routing.tsx
+  components/
+    badges/
+    cards/
+    charts/
+    tables/
+    layout/
+  theme/
+    tokens.ts
+    chartPalette.ts
+  core/
+  industry/
+  configs/
+  mock/
+  utils/
+```
+
+The goal is to keep the UI implementation product-grade and easy to modify while still matching the dark navy / cyan industrial visual direction.
+
+### 3.4 Every energy result must include trust metadata
 
 Every energy value must include:
 
@@ -167,6 +209,10 @@ die-casting-energy-soft-meter-demo/
 │   │       ├── CycleEnergyTable.tsx
 │   │       ├── ConfigSummaryTable.tsx
 │   │       └── TagMappingTable.tsx
+│   │
+│   ├── theme/
+│   │   ├── tokens.ts
+│   │   └── chartPalette.ts
 │   │
 │   └── utils/
 │       ├── format.ts
@@ -743,6 +789,42 @@ Implementation guidance:
 - Avoid bright white page sections, decorative blobs, and marketing-style hero layouts.
 - Confidence and source badges must remain visible beside energy values.
 - Charts should use the theme palette, not default Recharts colors.
+- Put color tokens in `src/theme/tokens.ts`.
+- Put chart series colors in `src/theme/chartPalette.ts`.
+- Do not copy the reference repo's large styled-components files; use compact reusable components and shared theme tokens instead.
+
+Suggested `src/theme/tokens.ts` shape:
+
+```ts
+export const themeTokens = {
+  background: {
+    app: "#000028",
+  },
+  surface: {
+    main: "#171739",
+    secondary: "rgba(55, 55, 77, 0.2)",
+    header: "rgba(0, 0, 40, 0.4)",
+  },
+  border: {
+    subtle: "rgba(232, 232, 227, 0.1)",
+    accent: "rgba(0, 204, 204, 0.3)",
+  },
+  accent: {
+    cyan: "#00CCCC",
+    green: "#00FFB9",
+  },
+  state: {
+    success: "#01D65A",
+    warning: "#FFD732",
+    error: "#FF2640",
+  },
+  text: {
+    primary: "#FFFFFF",
+    secondary: "rgba(255, 255, 255, 0.65)",
+    muted: "rgba(255, 255, 255, 0.45)",
+  },
+};
+```
 
 ---
 
