@@ -1,0 +1,65 @@
+import type { CustomerConfig } from "../core/types";
+
+export const dicastalLine6Config: CustomerConfig = {
+  id: "dicastal-line-6",
+  customerName: "CITIC Dicastal",
+  siteName: "Line 6 Die Casting Area",
+  version: "0.1.0",
+  assets: [
+    { id: "factory-001", name: "Dicastal Plant", type: "factory" },
+    { id: "line-6", name: "Line 6", type: "line", parentId: "factory-001" },
+    { id: "dc-01", name: "DC-01", type: "machine", parentId: "line-6", metadata: { hasMeter: true } },
+    { id: "dc-02", name: "DC-02", type: "machine", parentId: "line-6", metadata: { hasMeter: false } },
+    { id: "dc-03", name: "DC-03", type: "machine", parentId: "line-6", metadata: { hasMeter: false } },
+    { id: "dc-04", name: "DC-04", type: "machine", parentId: "line-6", metadata: { hasMeter: true } },
+    { id: "dc-05", name: "DC-05", type: "machine", parentId: "line-6", metadata: { hasMeter: false } },
+    { id: "meter-b1", name: "Meter B1", type: "meter", parentId: "line-6" },
+    { id: "meter-b2", name: "Meter B2", type: "meter", parentId: "line-6" },
+  ],
+  meterBoundaries: [
+    {
+      meterId: "meter-b1",
+      coversAssetIds: ["dc-01"],
+      boundaryType: "machine_level",
+      description: "Reference meter for DC-01.",
+    },
+    {
+      meterId: "meter-b2",
+      coversAssetIds: ["dc-04"],
+      boundaryType: "machine_level",
+      description: "Reference meter for DC-04.",
+    },
+  ],
+  tagMappings: [
+    { assetId: "dc-01", standardTag: "machine.power", sourceTag: "L6_DC01_Power", required: true, status: "mapped" },
+    { assetId: "dc-01", standardTag: "machine.run_status", sourceTag: "L6_DC01_RunStatus", required: true, status: "mapped" },
+    { assetId: "dc-01", standardTag: "machine.cycle_signal", sourceTag: "L6_DC01_Cycle", required: true, status: "mapped" },
+    { assetId: "dc-02", standardTag: "machine.current", sourceTag: "L6_DC02_Current", required: true, status: "mapped" },
+    { assetId: "dc-02", standardTag: "machine.run_status", sourceTag: "L6_DC02_RunStatus", required: true, status: "mapped" },
+    { assetId: "dc-02", standardTag: "machine.cycle_signal", sourceTag: "L6_DC02_Cycle", required: true, status: "mapped" },
+    { assetId: "dc-03", standardTag: "machine.current", sourceTag: "L6_DC03_Current", required: true, status: "mapped" },
+    { assetId: "dc-03", standardTag: "machine.run_status", sourceTag: "L6_DC03_RunStatus", required: true, status: "mapped" },
+    { assetId: "dc-03", standardTag: "machine.cycle_signal", sourceTag: "L6_DC03_Cycle", required: true, status: "derived" },
+    { assetId: "dc-04", standardTag: "machine.power", sourceTag: "L6_DC04_Power", required: true, status: "mapped" },
+    { assetId: "dc-04", standardTag: "machine.run_status", sourceTag: "L6_DC04_RunStatus", required: true, status: "mapped" },
+    { assetId: "dc-05", standardTag: "machine.current", sourceTag: "L6_DC05_Current", required: true, status: "missing" },
+    { assetId: "dc-05", standardTag: "machine.run_status", sourceTag: "L6_DC05_RunStatus", required: true, status: "mapped" },
+    { assetId: "line-6", standardTag: "mes.wheel_type", sourceTag: "MES_ProductCode", required: true, status: "mapped" },
+    { assetId: "line-6", standardTag: "environment.temperature", sourceTag: "L6_AmbientTemp", required: false, status: "mapped" },
+  ],
+  cycleRule: {
+    method: "signal_based",
+    standardTag: "machine.cycle_signal",
+    description: "A new cycle is detected from the rising edge of the configured cycle signal.",
+  },
+  wheelTypeField: "mes.wheel_type",
+  shifts: [
+    { id: "shift-a", name: "Shift A", startTime: "08:00", endTime: "20:00" },
+    { id: "shift-b", name: "Shift B", startTime: "20:00", endTime: "08:00" },
+  ],
+  thresholds: {
+    lowConfidenceScore: 0.7,
+    highDeviationPct: 15,
+    minimumDataQualityScore: 0.75,
+  },
+};
